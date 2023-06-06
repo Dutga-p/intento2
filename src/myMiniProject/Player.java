@@ -60,7 +60,6 @@ public class Player {
         return Integer.parseInt(nivelesEnString);
     }
 
-
     public int SetLevelPlayer(){
         if(GetLevelPlayer()<10){
             fileManager.uploadLevel(SearchPlayer(),GetLevelPlayer()+1);

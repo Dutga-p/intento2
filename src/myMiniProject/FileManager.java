@@ -20,17 +20,9 @@ public class FileManager
     private BufferedWriter output;
     public static final String usersList = "src/FilesTxt/Users.txt";
     public static final String wordLists = "src/FilesTxt/TwoHundredWords.txt";
-    private ArrayList<String> nameAndLevel;
-    private DefaultListModel usuariosModel;
 
 
-    /**
-     * Este método lee el archivo 'wordLists.txt' y retorna el arrayList con cada palabra del archivo
-     * @return ArrayList leerAchivos
-     */
-
-        public ArrayList<String> readFiles(String _file)
-    {
+    public ArrayList<String> readFiles(String _file) {
 
         ArrayList<String> texto = new ArrayList<>();
 
@@ -63,27 +55,6 @@ public class FileManager
         return texto;
     }
 
-
-    public void writeText(String linea)
-    {
-        try {
-            fileWriter = new FileWriter(usersList, true);
-            output = new BufferedWriter(fileWriter);
-            output.write(linea);
-            output.newLine();
-        }catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                output.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     public void uploadLevel(int posicion, int nivelNuevo)
     {
         try {
@@ -104,19 +75,5 @@ public class FileManager
         {
             e.printStackTrace();
         }
-    }
-    public DefaultListModel nameAndLevel(){
-        usuariosModel = new DefaultListModel<>();
-        nameAndLevel = readFiles("ListaUsuarios");
-        for (int i = 0; i < nameAndLevel.size() && !Objects.equals(nameAndLevel.get(i), " "); i++)
-        {
-            String eachUser = nameAndLevel.get(i);
-            String[] datosUsuario = eachUser.split("=");
-            String name = datosUsuario[0];
-            String level = datosUsuario[1];
-            String Player = name + " nivel "+ level;
-            usuariosModel.addElement(Player);
-        }
-        return usuariosModel;
     }
 }

@@ -12,14 +12,14 @@ import java.util.Random;
 
 public class Controller {
 
-    private Words diccionario;
+    private Words dictionary;
 
     private ArrayList<String> WordsToShow = new ArrayList<>();
     private boolean levelCounter;
     private Player myUser;
 
     String userName;
-    int approvedLevels, currentLevel, cantPalabrasDelNivel, hits, counterCorrectWords, contadorPalabrasAleatorias;
+    int approvedLevels, currentLevel, cantPalabrasDelNivel, hits, counterCorrectWords, counterRandomWords;
     double percentHits;
     private ArrayList<String> correctWordLists = new ArrayList<>();
     private ArrayList<String> wrongWordLists = new ArrayList<>();
@@ -28,10 +28,10 @@ public class Controller {
 
     public Controller() {}
 
-    public void SearchPlayer(String nombreJugador) {
-        diccionario = new Words();
+    public void SearchPlayer(String name) {
+        dictionary = new Words();
         newUser = false;
-        userName = nombreJugador;
+        userName = name;
         myUser = new Player(userName);
         if (myUser.PlayerExist()) {
             approvedLevels = myUser.GetLevelPlayer();
@@ -58,8 +58,8 @@ public class Controller {
         }
         WordsPerLevel();
         PercentagesPerLevel();
-        correctWordLists = diccionario.PalabrasCorrectas(cantPalabrasDelNivel / 2);
-        wrongWordLists = diccionario.PalabrasIncorrectas(cantPalabrasDelNivel / 2);
+        correctWordLists = dictionary.GenerateRightWords(cantPalabrasDelNivel / 2);
+        wrongWordLists = dictionary.GenerateWrongWords(cantPalabrasDelNivel / 2);
         RandomWords();
     }
 
@@ -86,9 +86,9 @@ public class Controller {
 
         while (auxiliary.size() > 0) {
             Random random = new Random();
-            String palabra = auxiliary.get(random.nextInt(auxiliary.size()));
-            int index = auxiliary.indexOf(palabra);
-            randomWordLists.add(palabra);
+            String word = auxiliary.get(random.nextInt(auxiliary.size()));
+            int index = auxiliary.indexOf(word);
+            randomWordLists.add(word);
             auxiliary.remove(index);
         }
     }
@@ -104,12 +104,12 @@ public class Controller {
         }
     }
 
-    public void ValidateCorrectWord(String palabra) {
+    public void ValidateCorrectWord(String word) {
 
         int i = 0;
         while (i < correctWordLists.size()) {
-            String elementoListCorrecta = correctWordLists.get(i);
-            if (elementoListCorrecta.equals(palabra)) {
+            String rightWord = correctWordLists.get(i);
+            if (rightWord.equals(word)) {
                 hits++;
                 break;
             }
@@ -117,11 +117,11 @@ public class Controller {
         }
     }
 
-    public void ValidateWrongWord(String palabra) {
-        int i = 0, arraListPalabrasIncorrectasSize = wrongWordLists.size();
-        while (i < arraListPalabrasIncorrectasSize) {
-            String elementoListIncorrecta = wrongWordLists.get(i);
-            if (elementoListIncorrecta.equals(palabra)) {
+    public void ValidateWrongWord(String word) {
+        int i = 0, wrongWordListSize = wrongWordLists.size();
+        while (i < wrongWordListSize) {
+            String wrongWord = wrongWordLists.get(i);
+            if (wrongWord.equals(word)) {
                 hits++;
                 break;
             }
@@ -130,22 +130,22 @@ public class Controller {
     }
 
     public String GetWordsMemorize() {
-        String palabraMemorizar = "";
+        String wordMemorize = "";
         if (counterCorrectWords < correctWordLists.size()) {
-            palabraMemorizar = correctWordLists.get(counterCorrectWords);
+            wordMemorize = correctWordLists.get(counterCorrectWords);
             counterCorrectWords++;
         }
-        return palabraMemorizar;
+        return wordMemorize;
     }
 
     public String getRandomWords() {
-        String palabraAleatoria = "";
-        if (contadorPalabrasAleatorias < randomWordLists.size()) {
-            palabraAleatoria = randomWordLists.get(contadorPalabrasAleatorias);
-            int index = randomWordLists.indexOf(palabraAleatoria);
+        String randomWord = "";
+        if (counterRandomWords < randomWordLists.size()) {
+            randomWord = randomWordLists.get(counterRandomWords);
+            int index = randomWordLists.indexOf(randomWord);
             randomWordLists.remove(index);
         }
-        return palabraAleatoria;
+        return randomWord;
     }
 
     public int GetHits() {

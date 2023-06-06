@@ -29,16 +29,14 @@ public class GUI extends JFrame {
     private Header header;
     private Controller controller;
     private Escucha escucha;
-    private JPanel initiationPanel,gamePanel,buttonsPanel,wordsPanel,optionPanel,SelectUser;
+    private JPanel initiationPanel,gamePanel,buttonsPanel,wordsPanel,optionPanel;
     private JTextField box;
     private JTextArea messages;
-    private JButton ok,help,exit,instructions,yes,start, no,continueButton,newGame,ContinueButton,BackButton,selectButton,back;
-    private JLabel userNameLabel,levelLabel,timeLabel,wordLabel,Ad;
+    private JButton ok,help,exit,instructions,yes,start, no,continueButton,newGame,ContinueButton,back,OK;
+    private JLabel userNameLabel,levelLabel,timeLabel,wordLabel;
     private String userName;
     private Timer timer;
     private GridBagConstraints constraints, layoutGame;
-    private JScrollPane scrollPane;
-    private FileManager fileManager;
     private GUI gui;
 
     public GUI() {
@@ -95,6 +93,7 @@ public class GUI extends JFrame {
         initiationPanel = new JPanel(new GridBagLayout()); // Set up JPanel Container's Layout
         initiationPanel.setPreferredSize(new Dimension(999, 666));
         initiationPanel.setOpaque(false);
+        initiationPanel.setBackground(new Color(255,255,255,0));
         constraints.gridx = 0;
         constraints.gridy = 2;
         constraints.gridwidth = 2;
@@ -115,6 +114,7 @@ public class GUI extends JFrame {
         newGame.setPreferredSize(new Dimension(110, 30));
         newGame.setCursor(new Cursor(Cursor.HAND_CURSOR));
         newGame.setBorder(new EmptyBorder(100, 0, 100, 0));
+        //newGame.setBackground(new Color(255,255,255,0));
         layoutGame.gridx = 1;
         layoutGame.gridy = 1;
         layoutGame.gridwidth = 1;
@@ -127,78 +127,13 @@ public class GUI extends JFrame {
         ContinueButton.addActionListener(escucha);
         ContinueButton.setPreferredSize(new Dimension(110, 30));
         ContinueButton.setBorder(new EmptyBorder(100, 0, 100, 0));
+        //ContinueButton.setBackground(new Color(255,255,255,0));
         layoutGame.gridx = 1;
         layoutGame.gridy = 2;
         layoutGame.gridwidth = 1;
         layoutGame.fill = GridBagConstraints.NONE;
         layoutGame.anchor = GridBagConstraints.CENTER;
         initiationPanel.add(ContinueButton, layoutGame);
-    }
-
-    public void LoadGame(){
-
-        SelectUser = new JPanel();
-        SelectUser.setLayout(new GridBagLayout());
-        GridBagConstraints layoutLoadGame = new GridBagConstraints(); // PanelGame layout component
-        layoutLoadGame.gridx = 0;
-        layoutLoadGame.gridy = 0;
-        layoutLoadGame.insets = new Insets(10, 10, 10, 10);
-        SelectUser.setPreferredSize(new Dimension(600, 400));
-        constraints.gridx = 0;
-        constraints.gridy = 2;
-        constraints.gridwidth = 2;
-        constraints.fill = GridBagConstraints.NONE;
-        constraints.anchor = GridBagConstraints.CENTER;
-        this.add(SelectUser, constraints);
-
-        fileManager = new FileManager();
-        JList<String> usuariosList = new JList<>(fileManager.nameAndLevel());
-        usuariosList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-        GridBagConstraints layout = new GridBagConstraints();
-        Ad = new JLabel("Seleciona tu Usuario");
-        Ad.setPreferredSize(new Dimension(100, 200));
-        layout.gridx = 1;
-        layout.gridy = 0;
-        layout.gridwidth = 1;
-        layout.fill = GridBagConstraints.BOTH;
-        layout.anchor = GridBagConstraints.CENTER;
-        SelectUser.add(Ad, layout);
-
-        BackButton = new JButton("Volver");
-        BackButton.addActionListener(escucha);
-        BackButton.setPreferredSize(new Dimension(100, 100));
-        BackButton.setBorderPainted(false);
-        BackButton.setContentAreaFilled(false);
-        layout.gridx = 1;
-        layout.gridy = 5;
-        layout.gridwidth = 1;
-        layout.fill = GridBagConstraints.NONE;
-        layout.anchor = GridBagConstraints.CENTER;
-        SelectUser.add(BackButton, layout);
-
-        selectButton = new JButton("Seleccionar");
-        selectButton.addActionListener(escucha);
-        selectButton.setPreferredSize(new Dimension(100, 100));
-        selectButton.setBorderPainted(false);
-        selectButton.setContentAreaFilled(false);
-        layout.gridx = 2;
-        layout.gridy = 5;
-        layout.gridwidth = 1;
-        layout.fill = GridBagConstraints.NONE;
-        layout.anchor = GridBagConstraints.CENTER;
-        SelectUser.add(selectButton, layout);
-
-        scrollPane = new JScrollPane(usuariosList);
-        layout.gridx = 1;
-        layout.gridy = 3;
-        layout.gridwidth = 2;
-        layout.fill = GridBagConstraints.BOTH;
-        layout.weightx = 1.0;
-        layout.weighty = 1.0;
-        SelectUser.add(scrollPane, layout);
-        repaint();
-        revalidate();
     }
 
     public void Components() {
@@ -212,7 +147,7 @@ public class GUI extends JFrame {
         layoutStar.anchor = GridBagConstraints.CENTER;
         initiationPanel.add(userNameLabel, layoutStar);
 
-        //Cajón de entrada del texto
+        //Box
         box = new JTextField();
         box.setPreferredSize(new Dimension(260, 45));
         box.setFont(new Font("Arial ", Font.PLAIN, 32));
@@ -223,7 +158,7 @@ public class GUI extends JFrame {
         layoutStar.anchor = GridBagConstraints.LINE_END;
         initiationPanel.add(box, layoutStar);
 
-        //Boton de confirmación
+        //Boton Aceptar
         ok = new JButton("Aceptar");
         ok.addActionListener(escucha);
         ok.setPreferredSize(new Dimension(109, 59));
@@ -236,6 +171,58 @@ public class GUI extends JFrame {
         layoutStar.anchor = GridBagConstraints.LINE_START;
         initiationPanel.add(ok, layoutStar);
 
+        //Boton Atras
+        back = new JButton("Atras");
+        back.addActionListener(escucha);
+        back.setPreferredSize(new Dimension(100, 100));
+        back.setBorderPainted(false);
+        back.setContentAreaFilled(false);
+        layoutStar.gridx = 1;
+        layoutStar.gridy = 2;
+        layoutStar.gridwidth = 1;
+        layoutStar.fill = GridBagConstraints.NONE;
+        layoutStar.anchor = GridBagConstraints.CENTER;
+        initiationPanel.add(back, layoutStar);
+        revalidate();
+        repaint();
+    }
+
+    public void ContinueComponents() {
+
+        GridBagConstraints layoutStar = new GridBagConstraints();//Componente del layoutGame
+        userNameLabel = new JLabel("Nombre de Usuario a buscar");
+        layoutStar.gridx = 0;
+        layoutStar.gridy = 0;
+        layoutStar.gridwidth = 2;
+        layoutStar.fill = GridBagConstraints.NONE;
+        layoutStar.anchor = GridBagConstraints.CENTER;
+        initiationPanel.add(userNameLabel, layoutStar);
+
+        //Box
+        box = new JTextField();
+        box.setPreferredSize(new Dimension(260, 45));
+        box.setFont(new Font("Arial ", Font.PLAIN, 32));
+        layoutStar.gridx = 0;
+        layoutStar.gridy = 1;
+        layoutStar.gridwidth = 1;
+        layoutStar.fill = GridBagConstraints.NONE;
+        layoutStar.anchor = GridBagConstraints.LINE_END;
+        initiationPanel.add(box, layoutStar);
+
+        //Boton Aceptar
+        OK = new JButton("Aceptar");
+        OK.addActionListener(escucha);
+        OK.setPreferredSize(new Dimension(109, 59));
+        OK.setBorderPainted(false);
+        OK.setContentAreaFilled(false);
+        layoutStar.gridx = 1;
+        layoutStar.gridy = 1;
+        layoutStar.gridwidth = 1;
+        layoutStar.fill = GridBagConstraints.NONE;
+        layoutStar.anchor = GridBagConstraints.LINE_START;
+        initiationPanel.add(OK, layoutStar);
+
+        //Boton Atras
         back = new JButton("Atras");
         back.addActionListener(escucha);
         back.setPreferredSize(new Dimension(100, 100));
@@ -268,7 +255,7 @@ public class GUI extends JFrame {
         messages.setEditable(false);
         messages.setLineWrap(true);
         messages.setWrapStyleWord(true);
-        messages.setBackground(new Color(25, 196, 192, 130));
+        messages.setBackground(new Color(255,255,255,0));
         messages.setOpaque(true);
         messages.setPreferredSize(new Dimension(405, 155));
         messages.setFont(new Font("Impact", Font.PLAIN, 27));
@@ -357,7 +344,7 @@ public class GUI extends JFrame {
     public void Components3() {
         messages.setText("\n               ¡Es tu momento! \n   Demuestra tu capacidad\n   " +
                 "memorizar ");
-        messages.setBackground(new Color(250, 8, 45, 130));
+        messages.setBackground(new Color(255,255,255,0));
         messages.setPreferredSize(new Dimension(400, 180));
         messages.setForeground(Color.RED);
         layoutGame.gridx = 0;
@@ -442,7 +429,7 @@ public class GUI extends JFrame {
     }
 
     private class Escucha implements ActionListener {
-        private int counter, fase;
+        private int counter = -1, fase;
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -451,9 +438,9 @@ public class GUI extends JFrame {
                 counter++;
 
                 if (fase == 1) {
-                    if (counter > 1) {
-                        wordLabel.setText(controller.GetWordsMemorize());
+                    if (counter > 5) {
                         counter = 1;
+                        wordLabel.setText(controller.GetWordsMemorize());
                     }
                     if (Objects.equals(wordLabel.getText(), "")) {
                         timer.stop();
@@ -464,7 +451,7 @@ public class GUI extends JFrame {
                     }
                 }
                 if (fase == 2) {
-                    if (counter > 1) {
+                    if (counter > 7) {
                         wordLabel.setText(controller.getRandomWords());
                         counter = 0;
                     }
@@ -484,17 +471,10 @@ public class GUI extends JFrame {
                 repaint();
             }
             if(e.getSource()==ContinueButton){
-                fileManager = new FileManager();
-                if(fileManager.nameAndLevel().isEmpty()){
-                    JOptionPane.showMessageDialog(initiationPanel, "No hay ningun usuario registrado aún", "Error", JOptionPane.ERROR_MESSAGE);
-
-                }else{
-                    initiationPanel.removeAll();
-                    remove(initiationPanel);
-                    LoadGame();
-                    repaint();
-                    revalidate();
-                }
+                initiationPanel.removeAll();
+                ContinueComponents();
+                revalidate();
+                repaint();
             }
             if(e.getSource()==back){gui.main(null);}
             if (e.getSource() == exit) System.exit(0);
@@ -516,6 +496,25 @@ public class GUI extends JFrame {
                         StartGame();
                         revalidate();
                         repaint();
+                    }
+                }
+            }
+            if (e.getSource() == OK) {
+                userName = box.getText();
+                if(userName.isEmpty()){
+                    JOptionPane.showMessageDialog(initiationPanel, "Necesitas un nombre de usuario", "Error", JOptionPane.ERROR_MESSAGE);
+                }else {
+                    remove(initiationPanel);
+                    Player jugador = new Player(userName);
+                    if(jugador.PlayerExist()){
+                        remove(initiationPanel);
+                        controller.SearchPlayer(userName);
+                        StartGame();
+                        revalidate();
+                        repaint();
+                    }else{
+                        JOptionPane.showMessageDialog(initiationPanel, "El usuario no existe, ingresa un usurio existente", "Error", JOptionPane.ERROR_MESSAGE);
+                        add(initiationPanel);
                     }
                 }
             }

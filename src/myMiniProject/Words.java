@@ -26,7 +26,7 @@ public class Words {
         dictionary = fileManager.readFiles("ListaPalabras");
     }
 
-    public ArrayList<String> PalabrasCorrectas(int nroPalabras) {
+    public ArrayList<String> GenerateRightWords(int nroPalabras) {
         IntStream.range(0, nroPalabras).mapToObj(i -> new Random()).mapToInt(random -> random.nextInt(dictionary.size())).forEachOrdered(auxIndex -> {
             RightWords.add(dictionary.get(auxIndex));
             dictionary.remove(auxIndex);
@@ -34,7 +34,7 @@ public class Words {
         return RightWords;
     }
 
-    public ArrayList<String> PalabrasIncorrectas(int nroPalabras) {
+    public ArrayList<String> GenerateWrongWords(int nroPalabras) {
 
         IntStream.range(0, nroPalabras).mapToObj(i -> new Random()).mapToInt(random -> random.nextInt(dictionary.size())).forEach(auxIndex -> {
             WrongWords.add(dictionary.get(auxIndex));
