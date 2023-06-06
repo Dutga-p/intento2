@@ -11,6 +11,7 @@ import java.util.Objects;
  * This class is used for ...
  * @autor Esteban Camilo Martinez Urbano - esteban.urbano@correounivalle.edu.co
  * @autor David Camilo Ordoñez Marin - david.camilo.ordonez@correounivalle.edu.co
+ * @autor Diana Sarmiento - diana.sarmiento@correounivalle.edu.co
  * @version v.1.0.0 date:05/06/2023
  */
 
@@ -42,6 +43,7 @@ public class GUI extends JFrame {
     public GUI() {
         initGUI();
         this.setUndecorated(true);
+        this.getContentPane().setBackground(Color.gray);
         this.pack();
         this.setResizable(true);
         this.setVisible(true);
@@ -58,13 +60,14 @@ public class GUI extends JFrame {
         escucha = new Escucha();
         controller = new Controller();
 
-        header = new Header("juego:I KNOW THAT WORD", Color.BLACK);
+        header = new Header("I KNOW THAT WORD", Color.BLACK);
         constraints.gridx = 1;
         constraints.gridy = 0;
         constraints.gridwidth = 1;
         constraints.fill = GridBagConstraints.CENTER;
         this.add(header, constraints);
 
+        //Boton de ayuda
         help = new JButton("Ayuda");
         help.addActionListener(escucha);
         help.setPreferredSize(new Dimension(100, 80));
@@ -77,6 +80,7 @@ public class GUI extends JFrame {
         constraints.anchor = GridBagConstraints.LINE_START;
         this.add(help, constraints);
 
+        //Boton de salir
         exit = new JButton("Salir");
         exit.addActionListener(escucha);
         exit.setPreferredSize(new Dimension(110, 70));
@@ -100,6 +104,8 @@ public class GUI extends JFrame {
         constraints.fill = GridBagConstraints.NONE;
         constraints.anchor = GridBagConstraints.CENTER;
         this.add(initiationPanel, constraints);
+        initiationPanel.setBackground(Color.RED);
+
         NewGameAndContinue();
         revalidate();
         repaint();
@@ -127,7 +133,6 @@ public class GUI extends JFrame {
         ContinueButton.addActionListener(escucha);
         ContinueButton.setPreferredSize(new Dimension(110, 30));
         ContinueButton.setBorder(new EmptyBorder(100, 0, 100, 0));
-        //ContinueButton.setBackground(new Color(255,255,255,0));
         layoutGame.gridx = 1;
         layoutGame.gridy = 2;
         layoutGame.gridwidth = 1;
@@ -238,6 +243,7 @@ public class GUI extends JFrame {
         repaint();
     }
 
+    //Continuacion de la configuracion y visualizacion de los componentesd de la interfaz
     public void StartGame() {
         gamePanel = new JPanel();//Crea el panel con la imagen
         gamePanel.setLayout(new GridBagLayout());//Set up JPanel Container's Layout
@@ -248,6 +254,7 @@ public class GUI extends JFrame {
         constraints.gridwidth = 2;
         constraints.fill = GridBagConstraints.NONE;
         constraints.anchor = GridBagConstraints.CENTER;
+        gamePanel.setBackground(Color.cyan);
         this.add(gamePanel, constraints);
 
         messages = new JTextArea("   ¡¡Que Tal " + userName + "!!\n" +
@@ -270,6 +277,8 @@ public class GUI extends JFrame {
         repaint();
     }
 
+    //Configura y agrega los botones de inicio e instrucciones a la interfaz.
+    //Este método crea un panel para contener los botones, configura sus propiedades
     public void StartAndInstructionButtons() {
 
         buttonsPanel = new JPanel();
@@ -282,6 +291,7 @@ public class GUI extends JFrame {
         constraints.anchor = GridBagConstraints.CENTER;
         this.add(buttonsPanel, constraints);
 
+        //Boton de instrucciones del juego
         instructions = new JButton("Instruciones");
         instructions.addActionListener(escucha);
         instructions.setPreferredSize(new Dimension(280, 85));
@@ -289,6 +299,7 @@ public class GUI extends JFrame {
         instructions.setContentAreaFilled(false);
         buttonsPanel.add(instructions);
 
+        //Boton de inicio del juego
         start = new JButton("Jugar");
         start.addActionListener(escucha);
         start.setPreferredSize(new Dimension(280, 85));
@@ -299,6 +310,7 @@ public class GUI extends JFrame {
 
     public void Components2() {
 
+        //Configura restricciones de diseño para la etiqueta de nivel
         levelLabel = new JLabel("NIVEL: " + Integer.toString(controller.GetCurrentLevel()));
         levelLabel.setFont(new Font("Impact", Font.PLAIN, 27));
         layoutGame.gridx = 0;
@@ -308,6 +320,7 @@ public class GUI extends JFrame {
         layoutGame.anchor = GridBagConstraints.LINE_START;
         gamePanel.add(levelLabel, layoutGame);
 
+        //Caracteristicas de diseño en la etiqueta de tiempo
         timeLabel = new JLabel("00:00");
         timeLabel.setFont(new Font("Impact", Font.PLAIN, 27));
         layoutGame.gridx = 1;
@@ -317,6 +330,7 @@ public class GUI extends JFrame {
         layoutGame.anchor = GridBagConstraints.LINE_END;
         gamePanel.add(timeLabel, layoutGame);
 
+        //Se configura y agrega el panel de palabras a la interfaz de juego
         wordsPanel = new JPanel(new GridBagLayout());
         GridBagConstraints layoutPanelPalabras = new GridBagConstraints();
         wordsPanel.setPreferredSize(new Dimension(696, 357));
@@ -328,6 +342,7 @@ public class GUI extends JFrame {
         layoutGame.anchor = GridBagConstraints.CENTER;
         gamePanel.add(wordsPanel, layoutGame);
 
+        //Se configura la etiqueta de palabra y se agrega al panel de palabras
         wordLabel = new JLabel();
         wordLabel.setFont(new Font("Impact", Font.PLAIN, 60));
         layoutPanelPalabras.gridx = 0;
@@ -370,6 +385,8 @@ public class GUI extends JFrame {
     }
     
     public void Components4() {
+
+        //Se agrega el panel de opciones al panel de juego
         optionPanel = new JPanel();
         optionPanel.setPreferredSize(new Dimension(690, 90));
         optionPanel.setOpaque(false);
@@ -380,6 +397,7 @@ public class GUI extends JFrame {
         layoutGame.anchor = GridBagConstraints.CENTER;
         gamePanel.add(optionPanel, layoutGame);
 
+        // Agregar el boton "Si" al panel de juego
         yes = new JButton("Si");
         yes.addActionListener(escucha);
         yes.setPreferredSize(new Dimension(85, 85));
@@ -387,6 +405,7 @@ public class GUI extends JFrame {
         yes.setContentAreaFilled(false);
         optionPanel.add(yes);
 
+        //Agregar el boton "No" al panel de juego
         no = new JButton("No");
         no.addActionListener(escucha);
         no.setPreferredSize(new Dimension(85, 85));
@@ -397,6 +416,7 @@ public class GUI extends JFrame {
         repaint();
     }
 
+    //Metodo que continua el siguiente nivel del juego
     public void ContinueLevel() {
         String textoFinal = "";
         int aciertos = controller.GetHits();
@@ -428,6 +448,7 @@ public class GUI extends JFrame {
         });
     }
 
+    //Contiene la lógica para responder a los eventos de acción, como el temporizador o los botones.
     private class Escucha implements ActionListener {
         private int counter = -1, fase;
 
@@ -464,23 +485,29 @@ public class GUI extends JFrame {
                     }
                 }
             }
+            //si se presiona el boton new game se remueve el panel de inicio
             if (e.getSource()==newGame){
                 initiationPanel.removeAll();
                 Components();
                 revalidate();
                 repaint();
             }
+            //Si se presiona el botón "ContinueButton", se remueve el panel de inicio
             if(e.getSource()==ContinueButton){
                 initiationPanel.removeAll();
                 ContinueComponents();
                 revalidate();
                 repaint();
             }
+            //Si se presiona el botón "back", se llama al método main(null) de la clase gui para regresar a la pantalla anterior.
             if(e.getSource()==back){gui.main(null);}
+            //Si se presiona el botón "exit", se llama al método System.exit(0) para cerrar la aplicación.
             if (e.getSource() == exit) System.exit(0);
+            //Si se presiona el botón "help", se muestra un cuadro de diálogo de información con el contenido de la variable Info1.
             if (e.getSource() == help)
                 JOptionPane.showMessageDialog(null, Info1, null, JOptionPane.INFORMATION_MESSAGE);
 
+            //Configuracion al prfesionar el boton ok
             if (e.getSource() == ok) {
                 userName = box.getText();
                 if(userName.isEmpty()){
@@ -518,9 +545,11 @@ public class GUI extends JFrame {
                     }
                 }
             }
+            //Si se presiona el botón "instructions", se muestra un cuadro de diálogo de información con el contenido de la variable Information.
             if (e.getSource() == instructions) {
                 JOptionPane.showMessageDialog(null, Information, null, JOptionPane.PLAIN_MESSAGE);
             }
+            //Si se presiona el botón "start", se remueve el mensaje (messages) del panel de juego (gamePanel).
             if (e.getSource() == start) {
                 gamePanel.remove(messages);
                 Components2();
@@ -530,6 +559,7 @@ public class GUI extends JFrame {
                 counter = 1;
                 timer.start();
             }
+            //Si se presiona el botón "yes", se llama al método ValidateCorrectWord(wordLabel.getText()) de la clase controller
             if (e.getSource() == yes) {
                 controller.ValidateCorrectWord(wordLabel.getText());
                 wordLabel.setText(controller.getRandomWords());
@@ -537,6 +567,7 @@ public class GUI extends JFrame {
                 revalidate();
                 repaint();
             }
+            //Si se presiona el botón "no", se llama al método ValidateWrongWord(wordLabel.getText()) de la clase controller
             if (e.getSource() == no) {
                 controller.ValidateWrongWord(wordLabel.getText());
                 wordLabel.setText(controller.getRandomWords());
@@ -544,6 +575,7 @@ public class GUI extends JFrame {
                 revalidate();
                 repaint();
             }
+            //Si se presiona el botón "continueButton", se remueven el mensaje (messages) y el botón (continueButton) del panel de juego (gamePanel).
             if (e.getSource() == continueButton) {
                 gamePanel.remove(messages);
                 gamePanel.remove(continueButton);

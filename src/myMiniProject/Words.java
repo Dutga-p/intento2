@@ -8,6 +8,7 @@ import java.util.stream.IntStream;
  * This class is used for ...
  * @autor Esteban Camilo Martinez Urbano - esteban.urbano@correounivalle.edu.co
  * @autor David Camilo Ordoñez Marin - david.camilo.ordonez@correounivalle.edu.co
+ * @autor Diana Sarmiento - diana.sarmiento@correounivalle.edu.co
  * @version v.1.0.0 date:05/06/2023
  */
 
